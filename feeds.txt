@@ -1,0 +1,210 @@
+# Auto-harvested via VoidCrawl, ordered by inbound link count.
+# Merged across runs; feed paths are GUESSES that screen_feeds.py verifies.
+https://talkingwealthpod.com/feed    # x11 Work in wealth management? Sign up for our exclusive Talking
+https://awealthofcommonsense.com/feed    # x9 (Ben Carlson)
+https://behindthebalancesheet.substack.com/feed    # x7 Behind the Balance Sheet
+https://capitalallocators.com/feed    # x7 Capital Allocators
+https://trendlabs.com/feed    # x7 (trendlabs.com)
+https://rhinoinsight.substack.com/feed    # x6 RhinoInsight
+https://41investments.substack.com/feed    # x6 41investments
+https://benzinga.com/feed    # x6 Benzinga
+https://thewolfofharcourtstreet.com/feed    # x6 The Wolf of Harcourt Street
+https://macromornings.substack.com/feed    # x6 Alessandro (Macro Strategist)
+https://behindthebalancesheet.com/feed    # x6 Behind the Balance Sheet
+https://blockworks.co/feed    # x6
+https://heavymoatinvestments.substack.com/feed    # x6 Heavy Moat Investments
+https://founderspodcast.com/feed    # x6 Founders
+https://alluvial.substack.com/feed    # x6 Alluvial
+https://asiancenturystocks.com/feed    # x6 Asian Century Stocks
+https://alpha-sense.com/feed    # x6 AlphaSense
+https://acquired.fm/feed    # x6 Acquired
+https://apollo.com/feed    # x6 How Japan's stock market has changed over time. (apollo.com)
+https://compoundandfire.substack.com/feed    # x6 Compound & Fire
+https://portal.mvp.bafin.de/feed    # x6 BaFin - Managers' transactions
+https://beyondspx.com/feed    # x6 BeyondSPX
+https://riabiz.com/feed    # x5 Orion and Goldman Sachs ($GS) are getting cozier. (riabiz.co
+https://mrzepczynski.blogspot.com/feed    # x4 On the relationship between liquidity and momentum. (mrzepcz
+https://rpc.cfainstitute.org/feed    # x4 Rules of thumb work in markets, until they don't. (rpc.cfain
+https://tomtunguz.com/feed    # x4 Frontier labs need models at different price points. (tomtun
+https://asiandividendstocks.substack.com/feed    # x3 Asian Dividend Stocks
+https://basehitinvesting.substack.com/feed    # x3 Base Hit Investing
+https://bestanchorstocks.substack.com/feed    # x3 Best Anchor Stocks
+https://yourbrainonmoney.substack.com/feed    # x3 (Hanna Horvath)
+https://ritholtz.com/feed    # x3 Barry Ritholtz talks with Jordan Grumet about living a life
+https://fa-mag.com/feed    # x3 Home insurance rates are only moving in one direction. (fa-m
+https://etf.com/feed    # x3 The Invesco S&P 500 Equal Weight ETF ($RSP) is having a mome
+https://theargumentmag.com/feed    # x3 Free trade is popular among Americans. (theargumentmag.com)
+https://crr.bc.edu/feed    # x3 One problem with annuities in retirement plans. (crr.bc.edu)
+https://pitchbook.com/feed    # x3 Which could put a crimp on these semiconductor companies pla
+https://sixcolors.com/feed    # x3 'Ted Lasso' is back for a fourth season on Apple TV. (sixcol
+https://construction-physics.com/feed    # x2 Construction Physics By Brian Potter
+https://peterlazaroff.com/feed    # x2 Peter Lazaroff talks with Jack Raines, author of "Young Mone
+https://artofmanliness.com/feed    # x2 Brett McKay talks with Jordan Grumet, author of "The Purpose
+https://allisonschrager.substack.com/feed    # x2 Why home ownership matters. (allisonschrager.substack.com)
+https://jordangrumet.substack.com/feed    # x2 The case against a bucket strategy. (jordangrumet.substack.c
+https://hellomortal.substack.com/feed    # x2 Aging in place requires planning. (hellomortal.substack.com)
+https://meaningfulmoney.life/feed    # x2 Retiring at the same time requires some forethought. (meanin
+https://humbledollar.com/feed    # x2 The case for a CCRC. (humbledollar.com)
+https://ofdollarsanddata.com/feed    # x2 Why money in your 20's is more valuable. (ofdollarsanddata.c
+https://readthejointaccount.com/feed    # x2 How to plan a vacation together. (readthejointaccount.com)
+https://tim.signaturefd.com/feed    # x2 If you're not content, you're not wealthy. (tim.signaturefd.
+https://behaviouralinvestment.com/feed    # x2 Leverage is not innovation. (behaviouralinvestment.com)
+https://larryswedroe.substack.com/feed    # x2 Is private credit volatility understated? If so, by how much
+https://pogueman.substack.com/feed    # x2 How well does Alexa+ work? (pogueman.substack.com)
+https://paulkrugman.substack.com/feed    # x2 How China won the Iran war. (paulkrugman.substack.com)
+https://klementoninvesting.substack.com/feed    # x2 (Joachim Klement)
+https://alphaarchitect.com/feed    # x2 Do rank-and-file workers earn abnormal returns on company st
+https://downtownjoshbrown.com/feed    # x2 The demand for compute is only going in one direction. (down
+https://thebulwark.com/feed    # x2 What did the Trump administration get for its Gulf AI deals?
+https://spyglass.org/feed    # x2 How to adjust historical box office numbers. (spyglass.org)
+https://investmentnews.com/feed    # x2 TradePMR now tops $50 billion in assets. (investmentnews.com
+https://wealthmanagement.com/feed    # x2 Is there really a looming shortage of advisers? (wealthmanag
+https://moontower.substack.com/feed    # x2 (Kris Abdelmessih)
+https://cnn.com/feed    # x2 Why the DOJ dropped the Reflecting Pool vandalism case. (cnn
+https://danieldrezner.substack.com/feed    # x2 Kevin Warsh is not inspiring confidence. (danieldrezner.subs
+https://chartkidmatt.com/feed    # x2 The Mag 7 era for markets is over. (chartkidmatt.com)
+https://allstarcharts.com/feed    # x2 The equal-weighted S&P 500 is at a new all-time high. (allst
+https://grist.org/feed    # x2 Offshore wind plays a important role in the energy economy.
+https://msn.com/feed    # x2 Gas stoves aren't great for asthma sufferers. (msn.com)
+https://semafor.com/feed    # x2 A fishing ban on China’s Yangtze River has led to a remarkab
+https://chicago.suntimes.com/feed    # x2 The Trump administration is putting the Great Lakes at great
+https://futurism.com/feed    # x2 Data center noise is real. (futurism.com)
+https://oldroperesearch.substack.com/feed    # x2 Risk management is a skill. (oldroperesearch.substack.com)
+https://stayathomemacro.substack.com/feed    # x2 How Warsh shot himself in the foot. (stayathomemacro.substac
+https://newyorker.com/feed    # x2 Plastic surgery is getting normalized and it breaking out br
+https://tonyisola.com/feed    # x2 Tony Isola, "Never confuse an unavailable price for a lack o
+https://bonddad.blogspot.com/feed    # x2 The economy is still growing, with elevated inflation. (bond
+https://thezvi.substack.com/feed    # x2 A look at the three levels of being AI-pilled. (thezvi.subst
+https://yahoo.com/feed    # x2 The pros and cons of battery-powered induction stoves. (yaho
+https://chinatalk.media/feed    # x1 ChinaTalk By Jordan Schneider
+https://tmtbreakout.com/feed    # x1 TMT Breakout
+https://yetanothervalueblog.com/feed    # x1 Yet Another Value Blog By Andrew Walker
+https://exponentialview.co/feed    # x1 Exponential View By Azeem Azhar
+https://libertyrpf.com/feed    # x1 Liberty’s Highlights
+https://tarotcapital.substack.com/feed    # x1 Tarot Capital By ZG
+https://kyla.substack.com/feed    # x1 Kyla’s Newsletter By kyla scanlon
+https://thechipletter.substack.com/feed    # x1 The Chip Letter By Babbage
+https://newsletter.semianalysis.com/feed    # x1 SemiAnalysis By Dylan Patel
+https://read.technically.dev/feed    # x1 Technically By Justin
+https://citriniresearch.com/feed    # x1 Citrini Research
+https://apricitas.io/feed    # x1 Apricitas Economics By Joseph Politano
+https://morethanmoore.substack.com/feed    # x1 More Than Moore By Dr. Ian Cutress
+https://nongaap.com/feed    # x1 Nongaap Investing By Mike
+https://asianometry.com/feed    # x1 The Asianometry Newsletter By Jon Y
+https://petition11.com/feed    # x1 PETITION
+https://deepquarry.substack.com/feed    # x1 Deep Quarry By Olga Usvyatsky
+https://adamtaggart.substack.com/feed    # x1 Adam Taggart's Thoughtful Money®
+https://maxfieldonbanks.com/feed    # x1 Maxfield on Banks By John Maxfield
+https://compoundingquality.net/feed    # x1 Compounding Quality
+https://overlookedalpha.com/feed    # x1 Overlooked Alpha
+https://readideabrunch.com/feed    # x1 Sunday's Idea Brunch By Edwin Dorsey
+https://herbgreenberg.com/feed    # x1 Herb Greenberg | On the Street By Herb Greenberg's Red Flag
+https://direports.substack.com/feed    # x1 Disclosure Insight®
+https://fritz.substack.com/feed    # x1 Asian Century Stocks (now on Ghost) By Michael Fritzell
+https://newsletter.doomberg.com/feed    # x1 Doomberg
+https://dirtybubblemedia.com/feed    # x1 Dirty Bubble Media
+https://compoundingquality.substack.com/feed    # x1 Visit Compounding Quality
+https://yetanothervalueblog.substack.com/feed    # x1 Visit Yet Another Value Blog
+https://sfranciscocarlin.substack.com/feed    # x1 Visit Value Investing with Sven Carlin
+https://flyoverstocks.substack.com/feed    # x1 Visit Flyover Stocks
+https://the10thman.substack.com/feed    # x1 Visit The 10th Man
+https://microcapnewsletter.substack.com/feed    # x1 Visit MicroCap Review
+https://notboring.co/feed    # x1 Visit Not Boring
+https://fabricatedknowledge.com/feed    # x1 Visit Fabricated Knowledge
+https://digitalnative.substack.com/feed    # x1 Visit Digital Native
+https://readtrung.com/feed    # x1 Visit SatPost by Trung Phan
+https://netinterest.co/feed    # x1 Visit Net Interest
+https://doomberg.substack.com/feed    # x1 Visit Doomberg
+https://thebearcave.substack.com/feed    # x1 Visit The Bear Cave
+https://kylascanlon.substack.com/feed    # x1 Visit Kyla Scanlon
+https://capitalgains.thediff.co/feed    # x1 Visit Capital Gains
+https://citriniresearch.substack.com/feed    # x1 Visit Citrini Research
+https://cloudedjudgement.substack.com/feed    # x1 Visit Clouded Judgement
+https://constructionphysics.substack.com/feed    # x1 Visit Construction Physics
+https://bitsaboutmoney.com/feed    # x1 Visit Bits about Money
+https://asianometry.substack.com/feed    # x1 Visit Asianometry
+https://verdadcap.substack.com/feed    # x1 Visit Verdad Capital
+https://alphaarchitect.substack.com/feed    # x1 Visit Alpha Architect
+https://ofdollarsanddata.substack.com/feed    # x1 Visit Of Dollars and Data
+https://thediff.co/feed    # x1 Visit The Diff
+https://noahpinion.substack.com/feed    # x1 Visit Noahpinion
+https://stratechery.com/feed    # x1 Visit Stratechery
+https://philbak.substack.com/feed    # x1 Phil Bak talks with Meb Faber, author of "Investing in Ameri
+https://youngmoney.co/feed    # x1 An excerpt from "Young Money: A Field Guide to Wealth and Pu
+https://kindnessfp.com/feed    # x1 An excerpt from "How to Help Your Parents As They Age: A Fin
+https://oldster.substack.com/feed    # x1 An excerpt from "Living, Together: Reimagining Community in
+https://retirementresearcher.com/feed    # x1 When building portfolios, age matters, but is just one facto
+https://contessacapitaladvisors.com/feed    # x1 Satisfaction in life doesn't mean everything is perfect. (co
+https://theretirementmanifesto.com/feed    # x1 Lessons learned from an online security audit. (theretiremen
+https://moneychangeseverything.substack.com/feed    # x1 Your money fears are not all that unique. (moneychangesevery
+https://huddleup.substack.com/feed    # x1 (Joe Pompliano)
+https://theinformation.com/feed    # x1 (theinformation.com)
+https://advisorpedia.com/feed    # x1 Nvidia ($NVDA) has become a dividend stock. (advisorpedia.co
+https://flirtingwithmodels.com/feed    # x1 Corey Hoffstein talks with Stacy Mintz about the evolution o
+https://rcmalternatives.com/feed    # x1 Jeff Malec talks with Eric Crittenden, fouder and CIO at Sta
+https://alphainacademia.com/feed    # x1 A round-up of recent academic research including 'When Fundi
+https://on.spdji.com/feed    # x1 The S&P 500 returned -0.06% last month. (on.spdji.com)
+https://capitalspectator.com/feed    # x1 How major asset classes performed in July 2026. (capitalspec
+https://theblock.co/feed    # x1 Prediction market volume is booming. (theblock.co)
+https://indianacapitalchronicle.com/feed    # x1 Why states are opposed to prediction markets. (indianacapita
+https://thetranscript.substack.com/feed    # x1 Companies still see robust consumer spending. (thetranscript
+https://variety.com/feed    # x1 “Spider-Man: Brand New Day” lived up to the hype. (variety.c
+https://kitces.com/feed    # x1 20 lessons learned from the Financial Advisor Success podcas
+https://taxalphainsider.com/feed    # x1 What issues the Treasury make take up in regards to Section
+https://tker.co/feed    # x1 On the limits of financial modeling. (tker.co)
+https://investing101.substack.com/feed    # x1 The hype machine has never been more impactful in markets. (
+https://bigtechnology.com/feed    # x1 Why the frontier labs may not make their best models publicl
+https://politico.com/feed    # x1 AI companies are spending big this election cycle. (politico
+https://economicweekly.substack.com/feed    # x1 The economic schedule for the coming week. (economicweekly.s
+https://seths.blog/feed    # x1 (Seth Godin)
+https://abundanceandgrowth.org/feed    # x1 How to fix the Jones Act. (abundanceandgrowth.org)
+https://coldeye.earth/feed    # x1 Despite growth in renewables, fossil fuel consumption keeps
+https://hybrideconomics.substack.com/feed    # x1 How excessive heat negatively affects the economy. (hybridec
+https://eurekalert.org/feed    # x1 Where landslide risk is highest. (eurekalert.org)
+https://science.org/feed    # x1 The assault on science funding isn't nuanced. (science.org)
+https://thehustle.co/feed    # x1 Boxed wine is going upscale. (thehustle.co)
+https://honest-broker.com/feed    # x1 Lebron James IS the modern NBA. (honest-broker.com)
+https://hollywoodreporter.com/feed    # x1 The 25 best documentaries of all-time including 'O.J.: Made
+https://sgcarney.substack.com/feed    # x1 Newsletter subscription fatigue is here. (sgcarney.substack.
+https://derekthompson.org/feed    # x1 (Derek Thompson)
+https://fasterplease.substack.com/feed    # x1 James Pethokoukis talks with Azeem Azhar about the state of
+https://cleantechnica.com/feed    # x1 Hybrids are having a moment. (cleantechnica.com)
+https://gelliottmorris.com/feed    # x1 Consumers HATE inflation. (gelliottmorris.com)
+https://eater.com/feed    # x1 These restaurants that are opting out of AI. (eater.com)
+https://fred.stlouisfed.org/feed    # x1 FRED
+https://econbrowser.com/feed    # x1 (econbrowser.com)
+https://harveysawikin.substack.com/feed    # x1 Fund managers have a hard time saying no to their clients. (
+https://covestreetcapital.com/feed    # x1 Some investment lessons of uncertain origin including 'Few t
+https://straitstimes.com/feed    # x1 South Korea's regulators are cracking down on leverage. (str
+https://fastcompany.com/feed    # x1 Jersey Mike's ($JMKE) is now public. (fastcompany.com)
+https://asymco.com/feed    # x1 Apple ($AAPL) has topped $5 trillion in market cap. (asymco.
+https://newsletter.platypuseconomics.com/feed    # x1 Warsh is fumbling in public. (newsletter.platypuseconomics.c
+https://experimentalliving.substack.com/feed    # x1 A.J. Jacobs, "All-or-nothing language also causes rage and f
+https://nextbigideaclub.com/feed    # x1 Five insights from Roopika Risam's new book, "Data Empire: T
+https://scientificamerican.com/feed    # x1 A Q&A with Rowan Jacobsen author of "In Defense of Sunlight:
+https://fiscal.ai/feed    # x1 Copart ($CPRT) plays a crucial role in the auto industry. (f
+https://dannykatch.substack.com/feed    # x1 When you lock up goods, people buy less of them. (dannykatch
+https://worseonpurpose.com/feed    # x1 How quality erodes over time. (worseonpurpose.com)
+https://aeon.co/feed    # x1 The ancient world was more global than previously thought. (
+https://sfstandard.com/feed    # x1 Why SFPD closes so few rape cases. (sfstandard.com)
+https://trevoraleo.substack.com/feed    # x1 This is the real literacy crisis. (trevoraleo.substack.com)
+https://essentia-analytics.com/feed    # x1 (Clare Flynn Levy)
+https://sportico.com/feed    # x1 When you hire influencers, sometimes they post controversial
+https://mastersinvest.com/feed    # x1 Why employee ownership matters. (mastersinvest.com)
+https://citywire.com/feed    # x1 Bloomberg is buying alts-focused data company Canoe Intellig
+https://blairbellecurve.com/feed    # x1 Chris Hill talks with Blair duQuesnay about not screwing up
+https://optimisticallie.com/feed    # x1 The learning curve for alternative assets is simply higher.
+https://savantwealth.com/feed    # x1 Are you retiring from something or to something? (savantweal
+https://becomingnoble.substack.com/feed    # x1 The important things in life got more expensive. (becomingno
+https://bestinterest.blog/feed    # x1 Why time is as important as money when it comes to spending.
+https://finfluential.substack.com/feed    # x1 Three finfluencers that people actually trust. (finfluential
+https://finance.yahoo.com/feed    # x1 CME Group ($CME) is launching single-stock futures. (finance
+https://9to5mac.com/feed    # x1 Apple ($AAPL) is planning new home smart hubs products. (9to
+https://calculatedrisk.substack.com/feed    # x1 Case-Shiller showed a 1.1% annual increase in house prices t
+https://nature.com/feed    # x1
+https://sciencedirect.com/feed    # x1
+https://mailchi.mp/feed    # x1
+https://novelinvestor.com/feed    # x1
+https://acadian-asset.com/feed    # x1 Higher individual stock volatility is being offset by increa
+https://youradchoices.com/feed    # x1
+https://jasmi.news/feed    # x1 Five factors driving the data center backlash. (jasmi.news)
