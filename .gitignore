@@ -1,2 +1,31 @@
+# Generated output — everything here is reproducible from data/ + the scripts.
+out/
+post_times.csv
+events.csv
+event_returns.csv
+candidates.csv
+feeds.txt
+feeds_resolved.txt
+bylines.csv
+domain_report.csv
+author_candidates.csv
+stats_by_domain.csv
+
+# Caches
+.yosoi/
+.yf-cache/
+__pycache__/
+*.pyc
+
+# Secrets
 .env
-.yosoi
+
+# Large derived reference data — regenerate with:
+#   curl -o symbols.txt https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqtraded.txt
+#   cut -d'|' -f2 symbols.txt | tail -n +2 > data/tickers.txt
+symbols.txt
+
+# NOT ignored, and must stay tracked:
+#   data/50_domains.csv     hand-labelled, cannot be regenerated
+#   data/harvest_pages.txt  seed directory pages
+#   data/tickers.txt        small, and pins the symbol universe to a known state
