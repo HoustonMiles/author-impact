@@ -24,7 +24,7 @@ import csv
 import sys
 from pathlib import Path
 
-REPORT = Path('domain_report.csv')
+REPORT = Path('out/domain_report.csv')
 
 # Sources this project specifically expects to qualify: forensic accounting, short
 # research, and ticker-specific equity analysis. Substring match against the domain.

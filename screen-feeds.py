@@ -9,22 +9,25 @@ Usage:
     python screen_feeds.py feeds.txt
 
 feeds.txt: one feed URL per line. For any Substack, append /feed to the publication
-root (e.g. https://thebearcave.substack.com/feed). Blank lines and #-comments ignored.
+root (e.g. https://thebearcave.substack.com/feed). Blank lines, #-comments, and inline
+"# x3 Publication Name" annotations are all stripped.
 
-Outputs the same three CSVs as screen_domains.py so the two are interchangeable:
-  domain_report.csv, bylines.csv, author_candidates.csv
+Writes to out/: domain_report.csv, bylines.csv, author_candidates.csv, feeds_resolved.txt
+
+Normalisation, ticker detection, thresholds and scoring live in shared.py. This file
+holds only what is specific to reading RSS.
 
 KNOWN LIMIT: most feeds return only the ~20 most recent posts. That is plenty for
 screening (does this source have named authors and real timestamps?) but NOT enough
-history for a lead-rate study. Solve backfill separately, after screening.
+history for a lead-rate study. Use vc_post_times.py for backfill.
 """
 
 from __future__ import annotations
 
 import calendar
-import csv
 import re
 import sys
+import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -33,168 +36,26 @@ from urllib.parse import urlparse
 import feedparser
 import requests
 
-OUT_DIR = Path.cwd()  # write reports where you run it, not next to the script
+from shared import (MIN_ITEMS, MIN_AUTHOR_RATE, MIN_DATE_RATE, OUT_DIR,
+                    domain_of, dump_csv, normalize_byline, score_domain, tickers_in)
 
-MIN_ITEMS = 5
-MIN_AUTHOR_RATE = 0.7
-MIN_DATE_RATE = 0.7
-MIN_RESOLVED_RATE = 0.5   # byline must resolve to a PERSON, not just be non-empty
-MIN_TICKER_RATE = 0.15    # no tickers -> no lead rate -> useless, however good the writing
 GO_DOMAIN_COUNT = 40
-
-
-# --------------------------------------------------------------------------------------
-# Byline normalization (identical rules to screen_domains.py)
-# --------------------------------------------------------------------------------------
-
-_PREFIX_RE = re.compile(r'^\s*(by|written by|posted by|author)\s*[:\-]?\s*', re.I)
-_SEPARATORS = ('·', '|', '—', '–', ',')
-_DATEISH_RE = re.compile(
-    r'\b('
-    r'\d{1,2}[/-]\d{1,2}[/-]\d{2,4}'
-    r'|\d{4}-\d{2}-\d{2}'
-    r'|(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{1,2}'
-    r'|\d+\s+(hour|minute|day|week|month)s?\s+ago'
-    r')\b',
-    re.I,
-)
-_NON_NAME_RE = re.compile(r'[^\w\s\.\'-]', re.UNICODE)
-
-STAFF_TOKENS = {
-    'staff', 'editor', 'editors', 'admin', 'newsroom', 'team', 'contributor',
-    'guest', 'guest post', 'press release', 'reuters', 'associated press', 'ap',
-}
-
-
-def normalize_byline(raw: str | None, domain: str = '') -> str:
-    """Reduce a printed byline to a comparable name key. Empty string means unusable.
-
-    Two rules learned from real feed data:
-      * Apostrophes are DELETED, not kept. Substack emits both "Doug O'Laughlin" and
-        "Doug OLaughlin" for the same person; keeping the apostrophe splits one author
-        into two identities on the same domain.
-      * A byline matching the publication name ("The Bear Cave" on thebearcave.substack.com)
-        is the publication posting as itself, not a person. Compared against the domain.
-    """
-    if not raw:
-        return ''
-    s = str(raw).strip()
-    for sep in _SEPARATORS:
-        if sep in s:
-            s = s.split(sep)[0].strip()
-    s = _PREFIX_RE.sub('', s)
-    # Blogger emits "noreply@blogger.com (Real Name)" - keep the parenthesised name.
-    m = re.match(r'^\S+@\S+\s*\((.+)\)\s*$', s)
-    if m:
-        s = m.group(1)
-    s = re.sub(r'\S+@\S+', ' ', s)          # any other bare email in the byline
-    s = _DATEISH_RE.sub('', s)
-    s = s.replace("'", '').replace('\u2019', '')   # O'Laughlin == OLaughlin
-    s = _NON_NAME_RE.sub(' ', s)
-    s = re.sub(r'\s+', ' ', s).strip().lower()
-
-    if not s or s in STAFF_TOKENS:
-        return ''
-    if len(s.split()) < 2:
-        return ''
-
-    # Publication-as-author: compare compacted forms against the domain's first label.
-    if domain:
-        label = re.sub(r'[^a-z0-9]', '', domain.split('.')[0].lower())
-        compact = re.sub(r'[^a-z0-9]', '', s)
-        stripped = compact[3:] if compact.startswith('the') else compact
-        for cand in {compact, stripped}:
-            if cand and label and (cand in label or label in cand):
-                return ''
-    return s
-
-
-
-# --------------------------------------------------------------------------------------
-# Ticker detection
-# --------------------------------------------------------------------------------------
-
-# Explicit ticker forms seen in real headlines:
-#   "Problems at StepStone ($STEP)"  -> $STEP
-#   "Problems at DraftKings (DKNG)"  -> (DKNG)
-#   "SpaceX (SPCX): Defying Gravity" -> (SPCX)
-#   "Earnings: TSMC, NXPI, AEHR"     -> bare all-caps run
-_CASHTAG_RE = re.compile(r'\$([A-Z]{1,5})\b')
-_PAREN_TICKER_RE = re.compile(r'\(\s*\$?([A-Z]{2,5})\s*\)')
-_BARE_RUN_RE = re.compile(r'\b([A-Z]{2,5})\b')
-
-# All-caps words that are not tickers. Extend this as you see false positives —
-# a bare-caps match is a weak signal and this list is what keeps it honest.
-_NOT_TICKERS = {
-    'AI', 'IPO', 'CEO', 'CFO', 'COO', 'IR', 'US', 'USA', 'UK', 'EU', 'GDP', 'CPI',
-    'ETF', 'ESG', 'SEC', 'FDA', 'FED', 'NEW', 'THE', 'AND', 'FOR', 'NOTW', 'PART',
-    'Q1', 'Q2', 'Q3', 'Q4', 'M&A', 'LLM', 'GPU', 'CPU', 'API', 'OS', 'PC',
-    # economic/industry acronyms that appear parenthesised in body prose
-    'MBA', 'PCE', 'SAAR', 'SPDJI', 'FCF', 'WSJ', 'CPS', 'LNG', 'MIRI', 'YOY',
-    'EBITDA', 'ROIC', 'ROE', 'TAM', 'ARR', 'MRR', 'CAGR', 'NAV', 'REIT', 'SPAC',
-    'FOMC', 'BLS', 'BEA', 'OECD', 'IMF', 'ECB', 'BOJ', 'PPI', 'ISM', 'PMI',
-}
-
-
-# Bare all-caps matching produced RIA, TV, EP, EOD, EUV, EV, II, FP as "tickers" on
-# real data - almost all noise. Strong forms ($TICK / parenthesised) were clean.
-# Leave this False unless you have a curated symbol universe to validate against.
-ALLOW_BARE_CAPS = False
-
-# Optional symbol universe. Body prose defines acronyms parenthetically - "the
-# Mortgage Bankers Association (MBA)", "(PCE)", "(SAAR)" - so pattern matching alone
-# cannot separate tickers from abbreviations. Drop a newline-delimited symbol list at
-# TICKER_UNIVERSE_FILE and every match is validated against it.
-#
-#   curl -o symbols.txt https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqtraded.txt
-#   cut -d'|' -f2 symbols.txt | tail -n +2 > tickers.txt
-#
-# Without the file, matching falls back to patterns + stoplist and WILL over-report.
-TICKER_UNIVERSE_FILE = Path('tickers.txt')
-
-
-def _load_universe() -> set[str] | None:
-    if not TICKER_UNIVERSE_FILE.exists():
-        return None
-    syms = {
-        ln.strip().upper()
-        for ln in TICKER_UNIVERSE_FILE.read_text(encoding='utf-8').splitlines()
-        if ln.strip() and ln.strip().isalpha()
-    }
-    return syms or None
-
-
-_UNIVERSE = _load_universe()
-
-
-def tickers_in(text: str | None) -> set[str]:
-    """Extract probable ticker symbols from a headline.
-
-    Strong signals ($TICK, parenthesised) are always accepted. Bare all-caps runs are
-    accepted only if not in the stoplist — that branch WILL produce false positives,
-    so treat the rate as an indicator for screening, not as extraction ground truth.
-    """
-    if not text:
-        return set()
-    found = set(_CASHTAG_RE.findall(text)) | set(_PAREN_TICKER_RE.findall(text))
-    if ALLOW_BARE_CAPS:
-        for m in _BARE_RUN_RE.findall(text):
-            if m not in _NOT_TICKERS and len(m) >= 2:
-                found.add(m)
-    found = {t for t in found if t not in _NOT_TICKERS}
-    if _UNIVERSE is not None:
-        found = {t for t in found if t in _UNIVERSE}
-    return found
-
 
 # Feed discovery. Three real failure modes from a live run, all recoverable:
 #   * DNS  - apex vs www differ; www.netinterest.co resolves, netinterest.co does not
 #   * HTML - /feed is the wrong path on some engines; try /rss, /feed.xml, ...
 #   * XML  - feedparser fetching by URL sends no User-Agent and mishandles gzip;
-#            fetch bytes with requests first, then parse those
+#            fetch the bytes first, then parse those
 FEED_PATHS = ('/feed', '/rss', '/feed.xml', '/index.xml', '/atom.xml', '/rss.xml')
 UA = 'Mozilla/5.0 (compatible; CascadingLabs-research/0.1; +https://cascadinglabs.com)'
 FETCH_TIMEOUT = 20
+
+# Politeness delay between feeds. Without it, 208 back-to-back requests read as an
+# attack: running the full screen twice in ten minutes made benzinga.com,
+# theinformation.com and artofmanliness.com start returning 404/403 when they had
+# served fine minutes earlier. Screen from out/feeds_resolved.txt on repeat runs to
+# avoid re-hitting hosts that are already known dead.
+REQUEST_DELAY = 1.0
 
 
 def feed_variants(url: str) -> list[str]:
@@ -242,11 +103,6 @@ def fetch_feed(url: str, session: requests.Session):
     return None, '', last
 
 
-def domain_of(url: str) -> str:
-    host = urlparse(url).netloc.lower()
-    return host[4:] if host.startswith('www.') else host
-
-
 def entry_author(entry) -> str | None:
     """Feeds put the author in several places depending on generator."""
     for key in ('author', 'dc_creator', 'creator'):
@@ -282,11 +138,10 @@ def entry_timestamp(entry) -> str | None:
     for key in ('published_parsed', 'updated_parsed'):
         st = entry.get(key)
         if st:
-            return datetime.fromtimestamp(calendar.timegm(st), tz=timezone.utc).isoformat()
+            return datetime.fromtimestamp(
+                calendar.timegm(st), tz=timezone.utc).isoformat()
     return None
 
-
-# --------------------------------------------------------------------------------------
 
 def collect(urls: list[str]) -> tuple[dict[str, list[dict]], dict[str, str]]:
     by_domain: dict[str, list[dict]] = defaultdict(list)
@@ -304,6 +159,7 @@ def collect(urls: list[str]) -> tuple[dict[str, list[dict]], dict[str, str]]:
             errors[dom] = err
             print(f'  FAIL  {dom}: {err}')
             by_domain[dom] = []
+            time.sleep(REQUEST_DELAY)
             continue
 
         working[dom] = found_url
@@ -320,9 +176,11 @@ def collect(urls: list[str]) -> tuple[dict[str, list[dict]], dict[str, str]]:
         note = ' (partial parse)' if feed.bozo else ''
         extra = '' if found_url == url else f'  [via {found_url}]'
         print(f'  ok    {dom}: {len(feed.entries)} entries{note}{extra}')
+        time.sleep(REQUEST_DELAY)
 
-    # Rewrite feeds.txt with the URLs that actually worked, so the next run is clean.
+    # Record the URLs that actually worked, so the next run can skip variant retries.
     if working:
+        OUT_DIR.mkdir(exist_ok=True)
         (OUT_DIR / 'feeds_resolved.txt').write_text(
             '\n'.join(sorted(working.values())) + '\n', encoding='utf-8'
         )
@@ -338,78 +196,38 @@ def write_reports(
     name_to_domains: dict[str, set[str]] = defaultdict(set)
 
     for dom, items in sorted(by_domain.items()):
-        n = len(items)
-        n_author = sum(1 for i in items if i.get('author'))
-        n_date = sum(1 for i in items if i.get('published_at'))
-        n_resolved = 0
-        n_ticker = 0
-
-        normalized_here = set()
         for i in items:
             raw = i.get('author')
             norm = normalize_byline(raw, dom)
+            tks = tickers_in(i.get('headline')) | tickers_in(i.get('body'))
             byline_rows.append({
                 'domain': dom,
                 'raw_byline': raw or '',
                 'normalized': norm,
                 'published_at': i.get('published_at') or '',
                 'headline': (i.get('headline') or '')[:120],
+                'tickers': ' '.join(sorted(tks)),
+                'body_chars': len(i.get('body') or ''),
             })
-            tks = tickers_in(i.get('headline')) | tickers_in(i.get('body'))
-            if tks:
-                n_ticker += 1
-            byline_rows[-1]['tickers'] = ' '.join(sorted(tks))
-            byline_rows[-1]['body_chars'] = len(i.get('body') or '')
             if norm:
-                n_resolved += 1
-                normalized_here.add(norm)
+                name_to_domains[norm].add(dom)
 
-        for norm in normalized_here:
-            name_to_domains[norm].add(dom)
-
-        author_rate = n_author / n if n else 0.0
-        date_rate = n_date / n if n else 0.0
-        domain_rows.append({
-            'domain': dom,
-            'items': n,
-            'author_rate': round(author_rate, 3),
-            'date_rate': round(date_rate, 3),
-            'resolved_rate': round(n_resolved / n, 3) if n else 0.0,
-            'ticker_rate': round(n_ticker / n, 3) if n else 0.0,
-            'distinct_authors': len(normalized_here),
-            'passes': (
-                n >= MIN_ITEMS
-                and author_rate >= MIN_AUTHOR_RATE
-                and date_rate >= MIN_DATE_RATE
-                and (n_resolved / n if n else 0) >= MIN_RESOLVED_RATE
-                and (n_ticker / n if n else 0) >= MIN_TICKER_RATE
-            ),
-            'error': errors.get(dom, ''),
-        })
+        # Scoring and thresholds live in shared.py so every consumer agrees.
+        row = score_domain(items, dom)
+        row['error'] = errors.get(dom, '')
+        domain_rows.append(row)
 
     candidate_rows = [
-        {'normalized_name': name, 'n_domains': len(doms), 'domains': '; '.join(sorted(doms))}
+        {'normalized_name': name, 'n_domains': len(doms),
+         'domains': '; '.join(sorted(doms))}
         for name, doms in sorted(name_to_domains.items(), key=lambda kv: -len(kv[1]))
         if len(doms) >= 2
     ]
 
-    _dump('domain_report.csv', domain_rows)
-    _dump('bylines.csv', byline_rows)
-    _dump('author_candidates.csv', candidate_rows)
+    dump_csv('domain_report.csv', domain_rows)
+    dump_csv('bylines.csv', byline_rows)
+    dump_csv('author_candidates.csv', candidate_rows)
     return sum(1 for r in domain_rows if r['passes']), len(candidate_rows)
-
-
-def _dump(name: str, rows: list[dict]) -> None:
-    path = OUT_DIR / name
-    if not rows:
-        path.write_text('')
-        print(f'  wrote {name} (empty)')
-        return
-    with path.open('w', newline='', encoding='utf-8') as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        w.writerows(rows)
-    print(f'  wrote {name} ({len(rows)} rows)')
 
 
 def main() -> None:
@@ -435,11 +253,12 @@ def main() -> None:
     print(f"""
 --- SUMMARY ---
 feeds attempted   : {len(by_domain)}
-feeds passing     : {n_pass}   (>={MIN_ITEMS} items, >={MIN_AUTHOR_RATE:.0%} author, >={MIN_DATE_RATE:.0%} date)
+feeds passing     : {n_pass}   (>={MIN_ITEMS} items, >={MIN_AUTHOR_RATE:.0%} author, \
+>={MIN_DATE_RATE:.0%} date)
 cross-domain names: {n_candidates}
 
 Go/no-go: you wanted ~{GO_DOMAIN_COUNT} passing sources. You have {n_pass}.
-Remember feeds usually cap at ~20 recent posts — this screens sources, it is not the corpus.
+Remember feeds usually cap at ~20 recent posts — this screens sources, not the corpus.
 """)
 
 

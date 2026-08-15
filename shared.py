@@ -53,9 +53,15 @@ _PUBLICATION_WORDS = {
     'analytics', 'analysis', 'partners', 'advisors', 'management', 'fund', 'funds',
 }
 
+# Checked TOKEN BY TOKEN, not as whole strings. An exact-match check let
+# "guest contributor" and "letters to the editor" through as author names, and they
+# then matched across domains and polluted author_candidates.csv.
 STAFF_TOKENS = {
-    'staff', 'editor', 'editors', 'admin', 'newsroom', 'team', 'contributor',
-    'guest', 'guest post', 'press release', 'reuters', 'associated press', 'ap',
+    'staff', 'editor', 'editors', 'editorial', 'admin', 'newsroom', 'team',
+    'contributor', 'contributors', 'contributing', 'guest', 'letters',
+    'correspondent', 'columnist', 'reporter', 'writer', 'writers',
+    'press', 'release', 'reuters', 'associated', 'wire', 'desk', 'bureau',
+    'anonymous', 'unknown', 'various', 'multiple', 'submitted',
 }
 
 
@@ -88,7 +94,8 @@ def normalize_byline(raw: str | None, domain: str = '') -> str:
     s = _NON_NAME_RE.sub(' ', s)
     s = re.sub(r'\s+', ' ', s).strip().lower()
 
-    if not s or s in STAFF_TOKENS or len(s.split()) < 2:
+    tokens = s.split()
+    if not s or len(tokens) < 2 or any(t in STAFF_TOKENS for t in tokens):
         return ''
 
     looks_like_publication = (

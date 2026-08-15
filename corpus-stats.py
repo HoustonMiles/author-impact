@@ -25,8 +25,8 @@ import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
-BYLINES = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('bylines.csv')
-DOMAIN_REPORT = Path('domain_report.csv')
+BYLINES = Path(sys.argv[1]) if len(sys.argv) > 1 else Path('out/bylines.csv')
+DOMAIN_REPORT = Path('out/domain_report.csv')
 OUT = Path('stats_by_domain.csv')
 
 # A domain is "person-bylined" if a majority of its posts resolve to a person.
